@@ -25,12 +25,12 @@ int main(){
 	long double X,Y,wi,W;
 	long double Dxi=0.01;
 	long double Mxi=2.5;
-	ofstream file("data.dat");
+	ofstream file("3D-Fermi-Chemical-Potential.dat");
 	for(long double xi=-Mxi;xi<=Mxi;xi+=Dxi){
 		W=Mxi*(exp(-xi)-1);
-		//1.calc X=f(ƒÌ)
+		//1.calc X=f(\xi)
 		X = pow(funcint(W),-0.666666666666666666667);
-		//2.calc Y=ƒÌX
+		//2.calc Y=\xi X
 		Y = W * X ;
 		//3.plot (X,Y)
 		file << X << " " << Y << endl;

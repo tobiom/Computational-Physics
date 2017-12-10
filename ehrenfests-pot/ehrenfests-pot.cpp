@@ -7,8 +7,8 @@ using namespace std;
 
 int main(void) {
 	int* flag;
-	const int num=4000;
-	const int T=100000;
+	const int num=1000000;
+	const int T=100000000;
 	flag = new int[num];
 	for(int i=0;i<num;i++) flag[i]=-1;
 	//
