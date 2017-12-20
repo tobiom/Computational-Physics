@@ -2,11 +2,11 @@
 #include<cmath>
 #include"mtwister.h"
 
-#define dT 0.5
-#define NPANEL 5
-#define SAMPS 10000
-#define TEMPS 10000
-#define SPNUM (NPANEL*NPANEL)
+const double dT = 1.0;
+const int NPANEL = 5;
+const int SAMPS = 10000;
+const int TEMPS = 10000;
+const int SPNUM = NPANEL*NPANEL;
 
 int p0,p1,dE;
 double T=0.5;
@@ -27,8 +27,7 @@ inline int updown(double x){
 }
 
 void SetIndex(){
-	int i,j;
-	for(i=0;i<NPANEL;i++) for(j=0;j<NPANEL;j++) {
+	for(int i=0;i<NPANEL;i++) for(int j=0;j<NPANEL;j++) {
 		Index[i][j][0]=(i+1)%NPANEL;
 		Index[i][j][1]=(i+NPANEL-1)%NPANEL;
 		Index[i][j][2]=(j+1)%NPANEL;
@@ -59,17 +58,16 @@ inline double Energy(int i,int j){
 }
 
 void ProcessB(int temp){
-	int i,j,k,l;
-	for(i=NPANEL*NPANEL;0<i;--i) for(j=10000;0<j;--j) Rev();
-	for(k=SAMPS;0<k;--k) {
-		for(i=NPANEL-1;0<=i;--i) for(j=NPANEL-1;0<=j;--j) {
+	for(int i=NPANEL*NPANEL;0<i;--i) for(int j=10000;0<j;--j) Rev();
+	for(int k=SAMPS;0<k;--k) {
+		for(int i=NPANEL-1;0<=i;--i) for(int j=NPANEL-1;0<=j;--j) {
 			En=Energy(i,j);
 			UnitE[temp][0]+=En;
 			UnitE[temp][1]+=En*En;
 			SqMag[temp][0]+=(double)(spins[i][j]);
 			SqMag[temp][1]+=(double)(spins[i][j]*spins[i][j]);
 		}
-		for(l=NPANEL*NPANEL*100;0<l;--l) Rev();
+		for(int l=NPANEL*NPANEL*100;0<l;--l) Rev();
 	}
 	SqMag[temp][0]/=(double)(SAMPS);
 	SqMag[temp][1]/=(double)(SAMPS);
