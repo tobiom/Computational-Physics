@@ -2,19 +2,23 @@
 #include<fstream>
 #include<iostream>
 #define _USE_MATH_DEFINES
+
 using namespace std;
+using ld = long double;
+
 const int N=64;
-const long double dt=0.125;
-inline long double func(long double t,long double p){
+const ld dt=0.125;
+
+inline ld func(ld t,ld p){
 	return sqrt(t)/(exp(t-p)+1);
 }
-inline long double funcint(long double eta){
-	long double t;
-	long double x;
-	long double dfx;
-	long double res=0.0;
+inline ld funcint(ld eta){
+	ld t;
+	ld x;
+	ld dfx;
+	ld res=0.0;
 	for(int i=-N;i<=N;i++) {
-		t = (long double)(i) * dt;
+		t = (ld)(i) * dt;
 		x = exp(t-exp(-t));
 		dfx = x * (1+exp(-t));
 		res += func(x,eta) * dfx * dt ;
@@ -22,11 +26,11 @@ inline long double funcint(long double eta){
 	return res;
 }
 int main(){
-	long double X,Y,wi,W;
-	long double Dxi=0.01;
-	long double Mxi=2.5;
+	ld X,Y,wi,W;
+	ld Dxi=0.01;
+	ld Mxi=2.5;
 	ofstream file("3D-Fermi-Chemical-Potential.dat");
-	for(long double xi=-Mxi;xi<=Mxi;xi+=Dxi){
+	for(ld xi=-Mxi;xi<=Mxi;xi+=Dxi){
 		W=Mxi*(exp(-xi)-1);
 		//1.calc X=f(\xi)
 		X = pow(funcint(W),-0.666666666666666666667);
